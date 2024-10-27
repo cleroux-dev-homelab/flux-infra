@@ -1,0 +1,10 @@
+controller:
+  nodeSelector:
+    kubernetes.io/os: linux
+  service:
+    type: NodePort
+    nodePorts:
+      http: 32003
+      https: 32004
+    ipFamilyPolicy: SingleStack
+    externalTrafficPolicy: Local

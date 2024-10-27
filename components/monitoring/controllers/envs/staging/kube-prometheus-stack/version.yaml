@@ -1,0 +1,8 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+spec:
+  chart:
+    spec:
+      version: "67.5.0" # {"$imagepolicy": "flux-system:kube-prometheus-stack:tag"}

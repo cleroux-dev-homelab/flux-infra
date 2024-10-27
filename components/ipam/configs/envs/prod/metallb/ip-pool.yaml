@@ -1,0 +1,9 @@
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: default-pool
+spec:
+  addresses:
+    - "172.22.126.210-172.22.126.215"
+    - "2620:7f:e000:2201:8888:8888:126:210-2620:7f:e000:2201:8888:8888:126:215"
