@@ -1,0 +1,8 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: k8s-gateway
+spec:
+  chart:
+    spec:
+      version: "3.1.1" # {"$imagepolicy": "flux-system:k8s-gateway:tag"}

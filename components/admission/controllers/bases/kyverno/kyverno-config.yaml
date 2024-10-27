@@ -1,0 +1,32 @@
+grafana:
+  enabled: true
+
+admissionController:
+  container:
+    resources:
+      limits:
+        memory: "500Mi"
+      requests:
+        cpu: "100m"
+        memory: "250Mi"
+  serviceMonitor:
+    enabled: true
+
+backgroundController:
+  resources:
+    limits:
+      memory: "500Mi"
+    requests:
+      cpu: "100m"
+      memory: "250Mi"
+  serviceMonitor:
+    enabled: true
+
+cleanupController:
+  serviceMonitor:
+    enabled: true
+
+reportsController:
+  enabled: false
+  serviceMonitor:
+    enabled: true

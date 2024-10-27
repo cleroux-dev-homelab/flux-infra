@@ -1,0 +1,31 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ingress-nginx
+spec:
+  values:
+    fullnameOverride: nginx-internal
+    controller:
+      extraEnvs:
+        - name: TZ
+          value: "${TIMEZONE}"
+      publishService:
+        enabled: true
+      ingressClassResource:
+        enabled: true
+        name: nginx-internal
+        default: false
+        controllerValue: ${INTERNAL_DOMAIN}/nginx-internal
+      ingressClass: nginx-internal
+      ingressClassByName: true
+      config:
+        client-header-timeout: 120
+        client-body-buffer-size: "100M"
+        client-body-timeout: 120
+        enable-brotli: "true"
+        hsts-max-age: "31449600"
+        keep-alive: 120
+        keep-alive-requests: 10000
+        proxy-body-size: "100M"
+        ssl-protocols: "TLSv1.3 TLSv1.2"

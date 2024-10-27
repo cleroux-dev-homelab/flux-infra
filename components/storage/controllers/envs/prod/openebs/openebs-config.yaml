@@ -1,0 +1,41 @@
+openebs-crds:
+  csi:
+    volumeSnapshots:
+      enabled: true
+      keep: true
+
+# Only deploy local-pv
+localpv-provisioner:
+  localpv:
+    enabled: true
+  hostpathClass:
+    enabled: true
+    isDefaultClass: true
+  rbac:
+    create: true
+
+zfs-localpv:
+  crds:
+    zfsLocalPv:
+      enabled: false
+    csi:
+      volumeSnapshots:
+        enabled: false
+
+lvm-localpv:
+  crds:
+    lvmLocalPv:
+      enabled: false
+    csi:
+      volumeSnapshots:
+        enabled: false
+
+engines:
+  local:
+    lvm:
+      enabled: false
+    zfs:
+      enabled: false
+  replicated:
+    mayastor:
+      enabled: false
