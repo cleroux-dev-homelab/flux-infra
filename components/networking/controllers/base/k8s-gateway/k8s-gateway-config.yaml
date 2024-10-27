@@ -1,0 +1,7 @@
+domain: "${INTERNAL_DOMAIN}"
+service:
+  type: LoadBalancer
+  port: 53
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: "${METALLB_IPV4_K8S_GATEWAY_ADDR}"
+  externalTrafficPolicy: Local

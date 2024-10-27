@@ -1,0 +1,23 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ingress-nginx-controller
+  namespace: flux-system
+spec:
+  targetNamespace: ingress-nginx
+  dependsOn:
+    - name: metallb-config
+  interval: 1m0s
+  retryInterval: 30s
+  timeout: 30s
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-infra
+  path: ./components/networking/controllers/base/ingress-nginx
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: flux-runtime-info
