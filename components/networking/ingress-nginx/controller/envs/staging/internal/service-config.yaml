@@ -1,0 +1,12 @@
+controller:
+  service:
+    type: NodePort
+    nodePorts:
+      http: 30100
+      https: 30100
+    externalIPs:
+      - 192.168.200.210
+    ipFamilyPolicy: SingleStack
+    ipFamilies:
+      - IPv4
+    externalTrafficPolicy: Local
