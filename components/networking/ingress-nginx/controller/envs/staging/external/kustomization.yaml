@@ -15,6 +15,3 @@ configMapGenerator:
       labels:
         app.kubernetes.io/part-of: flux
         app.kubernetes.io/component: ingress
-
-configurations:
-  - kustomizeconfig.yaml
