@@ -29,8 +29,8 @@ spec:
   postBuild:
     substitute:
       name: nginx-internal
-      http_port: 30100
-      https_port: 30200
+      http_port: "30100"
+      https_port: "30200"
       external_ip: 172.18.200.200
     substituteFrom:
       - kind: ConfigMap
