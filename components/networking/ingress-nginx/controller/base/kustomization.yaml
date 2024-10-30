@@ -5,3 +5,6 @@ kind: Kustomization
 resources:
   - ingress-nginx.yaml
   - rbac.yaml
+
+configurations:
+  - kustomizeconfig.yaml
