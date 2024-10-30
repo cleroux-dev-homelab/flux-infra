@@ -13,7 +13,7 @@ metadata:
   labels:
     app.kubernetes.io/component: ingress
     toolkit.fluxcd.io/tenant: clusterops
-  name: flux-ingress-nginx
+  name: flux-${name}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
