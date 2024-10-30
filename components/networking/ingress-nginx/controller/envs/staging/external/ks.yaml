@@ -36,12 +36,12 @@ spec:
   patches:
     - patch: |-
         - op: add
-          path: /spec/valuesFrom/-
+          path: /spec/valuesFrom/1
           value:
-            - kind: ConfigMap
-              name: service-config
-              valuesKey: service-config.yaml
-              targetPath: controller.service
+            kind: ConfigMap
+            name: service-config
+            valuesKey: service-config.yaml
+            targetPath: controller.service
       target:
         name: ingress-nginx
         kind: HelmRelease
