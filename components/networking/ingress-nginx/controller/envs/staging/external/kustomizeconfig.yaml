@@ -1,7 +1,0 @@
----
-nameReference:
-  - kind: ConfigMap
-    version: v1
-    fieldSpecs:
-      - path: spec/patches/patch/value/name
-        kind: Kustomization
