@@ -6,10 +6,10 @@ resources:
   - ./ks.yaml
 
 configMapGenerator:
-  - name: service-config
+  - name: nginx-service-config
     namespace: ingress-nginx-external
     files:
-      - service-config.yaml
+      - values.yaml=service-config.yaml
     options:
       disableNameSuffixHash: true
       labels:

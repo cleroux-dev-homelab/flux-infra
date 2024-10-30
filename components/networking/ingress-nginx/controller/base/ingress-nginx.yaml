@@ -30,5 +30,30 @@ spec:
     timeout: 9m
   valuesFrom:
     - kind: ConfigMap
-      name: nginx-config
-      valuesKey: config.yaml
+      name: nginx-service-config
+  values:
+    fullnameOverride: ${name}
+    controller:
+      extraEnvs:
+        - name: TZ
+          value: "${TIMEZONE}"
+      publishService:
+        enabled: true
+      ingressClassResource:
+        enabled: true
+        name: ${name}
+        default: false
+        controllerValue: ${domain}/${name}
+      ingressClass: ${name}
+      ingressClassByName: true
+
+      config:
+        client-header-timeout: 120
+        client-body-buffer-size: "100M"
+        client-body-timeout: 120
+        enable-brotli: "true"
+        hsts-max-age: "31449600"
+        keep-alive: 120
+        keep-alive-requests: 10000
+        proxy-body-size: "100M"
+        ssl-protocols: "TLSv1.3 TLSv1.2"

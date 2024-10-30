@@ -33,15 +33,3 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: flux-runtime-info
-  patches:
-    - patch: |-
-        - op: add
-          path: /spec/valuesFrom/1
-          value:
-            kind: ConfigMap
-            name: service-config
-            valuesKey: service-config.yaml
-            targetPath: .Values.controller.service
-      target:
-        name: ingress-nginx
-        kind: HelmRelease
