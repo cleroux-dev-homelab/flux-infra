@@ -13,6 +13,8 @@ metadata:
   name: kube-prometheus-stack-controller
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: ingress-nginx-controller
   targetNamespace: monitoring
   interval: 1m0s
   retryInterval: 30s
