@@ -1,27 +1,16 @@
-fullnameOverride: nginx-internal
+fullnameOverride: ${name}
 controller:
   extraEnvs:
     - name: TZ
       value: "${TIMEZONE}"
-  service:
-    type: NodePort
-    nodePorts:
-      http: 30100
-      https: 30200
-    externalIPs:
-      - 192.168.200.210
-    ipFamilyPolicy: SingleStack
-    ipFamilies:
-      - IPv4
-    externalTrafficPolicy: Local
   publishService:
     enabled: true
   ingressClassResource:
     enabled: true
-    name: nginx-internal
+    name: ${name}
     default: false
-    controllerValue: cleroux.dev/nginx-internal
-  ingressClass: nginx-internal
+    controllerValue: ${domain}/${name}
+  ingressClass: ${name}
   ingressClassByName: true
 
   config:

@@ -29,6 +29,7 @@ spec:
   postBuild:
     substitute:
       name: nginx-external
+      domain: cleroux.com
     substituteFrom:
       - kind: ConfigMap
         name: flux-runtime-info

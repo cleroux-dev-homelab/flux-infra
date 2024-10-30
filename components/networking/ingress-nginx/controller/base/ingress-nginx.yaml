@@ -30,5 +30,5 @@ spec:
     timeout: 9m
   valuesFrom:
     - kind: ConfigMap
-      name: flux-ingress-nginx-config
+      name: nginx-config
       valuesKey: config.yaml

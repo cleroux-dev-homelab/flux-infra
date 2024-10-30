@@ -1,0 +1,10 @@
+type: NodePort
+nodePorts:
+  http: 31000
+  https: 32000
+externalIPs:
+  - 216.66.68.16
+ipFamilyPolicy: SingleStack
+ipFamilies:
+  - IPv4
+externalTrafficPolicy: Local

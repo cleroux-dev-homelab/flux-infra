@@ -6,11 +6,27 @@ resources:
   - ./ks.yaml
 
 configMapGenerator:
-  - name: flux-ingress-nginx-config
+  - name: service-config
     namespace: ingress-nginx-external
     files:
-      - config.yaml
+      - service-config.yaml
     options:
       labels:
         app.kubernetes.io/part-of: flux
         app.kubernetes.io/component: ingress
+
+patches:
+  - patch: |-
+      - op: add
+        path: /spec/valuesFrom
+        value: |-
+          - kind: ConfigMap
+            name: service-config
+            valuesKey: service-config.yaml
+            targetPath: controller.service
+    target:
+      name: ingress-nginx
+      kind: HelmRelease
+
+configurations:
+  - kustomizeconfig.yaml
