@@ -31,4 +31,4 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: flux-ingress-nginx-config
-      valuesKey: ingress-nginx-config.yaml
+      valuesKey: config.yaml

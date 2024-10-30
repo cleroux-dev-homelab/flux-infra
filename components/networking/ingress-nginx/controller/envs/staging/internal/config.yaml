@@ -1,4 +1,4 @@
-fullnameOverride: ${name}
+fullnameOverride: nginx-internal
 controller:
   extraEnvs:
     - name: TZ
@@ -6,10 +6,10 @@ controller:
   service:
     type: NodePort
     nodePorts:
-      http: ${http_port}
-      https: ${https_port}
+      http: 30100
+      https: 30200
     externalIPs:
-      - ${external_ip}
+      - 192.168.200.210
     ipFamilyPolicy: SingleStack
     ipFamilies:
       - IPv4
@@ -18,10 +18,10 @@ controller:
     enabled: true
   ingressClassResource:
     enabled: true
-    name: ${name}
+    name: nginx-internal
     default: false
-    controllerValue: ${domain}/${name}
-  ingressClass: ${name}
+    controllerValue: cleroux.dev/nginx-internal
+  ingressClass: nginx-internal
   ingressClassByName: true
 
   config:

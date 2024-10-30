@@ -5,15 +5,3 @@ kind: Kustomization
 resources:
   - ingress-nginx.yaml
   - rbac.yaml
-
-configMapGenerator:
-  - name: flux-ingress-nginx-config
-    files:
-      - ingress-nginx-config.yaml
-    options:
-      labels:
-        app.kubernetes.io/part-of: flux
-        app.kubernetes.io/component: ingress
-
-configurations:
-  - kustomizeconfig.yaml
