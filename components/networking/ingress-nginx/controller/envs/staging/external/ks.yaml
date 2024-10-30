@@ -36,8 +36,8 @@ spec:
   patches:
     - patch: |-
         - op: add
-          path: /spec/valuesFrom
-          value: |-
+          path: /spec/valuesFrom/-
+          value:
             - kind: ConfigMap
               name: service-config
               valuesKey: service-config.yaml
