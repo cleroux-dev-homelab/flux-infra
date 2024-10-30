@@ -29,6 +29,7 @@ spec:
   postBuild:
     substitute:
       name: nginx-external
+      domain: ${EXTERNAL_DOMAIN}
       http_port: "31000"
       https_port: "32000"
       external_ip: 216.66.66.10

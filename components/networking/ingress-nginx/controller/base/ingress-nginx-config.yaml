@@ -20,7 +20,7 @@ controller:
     enabled: true
     name: ${name}
     default: false
-    controllerValue: ${EXTERNAL_DOMAIN}/${name}
+    controllerValue: ${domain}/${name}
   ingressClass: ${name}
   ingressClassByName: true
 
