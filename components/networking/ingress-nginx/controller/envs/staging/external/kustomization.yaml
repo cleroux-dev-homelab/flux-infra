@@ -15,18 +15,5 @@ configMapGenerator:
         app.kubernetes.io/part-of: flux
         app.kubernetes.io/component: ingress
 
-patches:
-  - patch: |-
-      - op: add
-        path: /spec/valuesFrom
-        value: |-
-          - kind: ConfigMap
-            name: service-config
-            valuesKey: service-config.yaml
-            targetPath: controller.service
-    target:
-      name: ingress-nginx
-      kind: HelmRelease
-
 configurations:
   - kustomizeconfig.yaml
