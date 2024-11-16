@@ -1,0 +1,16 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  interval: 1m0s
+  url: https://github.com/cleroux-dev-homelab/flux-infra.git
+  ref:
+    branch: main
+  secretRef:
+    name: source-git
+  ignore: |
+    /*
+    !/components/monitoring/kube-prometheus-stack

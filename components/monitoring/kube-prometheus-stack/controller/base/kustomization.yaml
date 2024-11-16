@@ -4,7 +4,6 @@ kind: Kustomization
 
 resources:
   - kube-prometheus-stack.yaml
-  - metrics-server.yaml
   - rbac.yaml
 
 configMapGenerator:

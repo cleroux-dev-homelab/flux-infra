@@ -1,0 +1,65 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: metrics-server
+  namespace: monitoring
+spec:
+  image: "registry-1.docker.io/bitnamicharts/metrics-server"
+  interval: 1h
+  provider: generic
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: metrics-server
+  namespace: monitoring
+spec:
+  imageRepositoryRef:
+    name: metrics-server
+  policy:
+    semver:
+      range: ">=6.0.0"
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageUpdateAutomation
+metadata:
+  name: metrics-server
+  namespace: monitoring
+spec:
+  interval: 30m
+  sourceRef:
+    kind: GitRepository
+    name: metrics-server
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@noreply.cleroux.dev
+        name: fluxcdbot
+      messageTemplate: |
+        Automated image update
+
+        Automation name: {{ .AutomationObject }}
+
+        Files:
+        {{ range $filename, $_ := .Changed.FileChanges -}}
+        - {{ $filename }}
+        {{ end -}}
+
+        Objects:
+        {{ range $resource, $changes := .Changed.Objects -}}
+        - {{ $resource.Kind }} {{ $resource.Name }}
+          Changes:
+        {{- range $_, $change := $changes }}
+            - {{ $change.OldValue }} -> {{ $change.NewValue }}
+        {{ end -}}
+        {{ end -}}
+
+    push:
+      branch: main
+  update:
+    path: ./components/monitoring/metrics-server/controller/envs/${ENVIRONMENT}
+    strategy: Setters
