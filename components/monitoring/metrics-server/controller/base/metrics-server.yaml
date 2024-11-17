@@ -17,6 +17,7 @@ spec:
   interval: 1h
   chart:
     spec:
+      version: "${version}"
       chart: metrics-server
       sourceRef:
         kind: HelmRepository

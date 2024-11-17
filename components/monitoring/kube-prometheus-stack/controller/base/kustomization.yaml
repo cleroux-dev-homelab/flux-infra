@@ -4,7 +4,6 @@ kind: Kustomization
 
 resources:
   - kube-prometheus-stack.yaml
-  - rbac.yaml
 
 configMapGenerator:
   - name: flux-kube-state-metrics-config
