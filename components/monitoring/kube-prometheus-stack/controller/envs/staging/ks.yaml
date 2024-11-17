@@ -15,5 +15,5 @@ spec:
     name: kube-prometheus-stack
   path: components/monitoring/kube-prometheus-stack/controller/base
   postBuild:
-    substitution:
+    substitute:
       version: "60.0.0" # {"$imagepolicy": "monitoring:kube-prometheus-stack:tag"}
