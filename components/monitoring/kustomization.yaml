@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ./namespace.yaml
+  - ./kube-prometheus-stack/ks.yaml
+  - ./metrics-server/ks.yaml
+
+secretGenerator:
+  - name: source-git
+    namespace: monitoring
+    options:
+      disableNameSuffixHash: true
+    envs:
+      - ./git.env

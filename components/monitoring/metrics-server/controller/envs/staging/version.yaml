@@ -1,8 +1,0 @@
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: version
-spec:
-  chart:
-    spec:
-      version: "7.2.16" # {"$imagepolicy": "monitoring:metrics-server:tag"}

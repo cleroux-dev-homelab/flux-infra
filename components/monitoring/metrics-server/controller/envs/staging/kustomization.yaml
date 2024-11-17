@@ -3,19 +3,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ../../base
+  - ./ks.yaml
   - ./update.yaml
   - ./source.yaml
-
-patches:
-  - path: version.yaml
-    target:
-      kind: HelmRelease
-      name: metrics-server
-
-secretGenerator:
-  - name: source-git
-    options:
-      disableNameSuffixHash: true
-    envs:
-      - ./git.env

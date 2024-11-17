@@ -1,8 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    app.kubernetes.io/component: monitoring
+    pod-security.kubernetes.io/enforce: privileged
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: flux
+  namespace: monitoring
   labels:
     app.kubernetes.io/component: monitoring
     toolkit.fluxcd.io/tenant: clusterops
@@ -21,3 +29,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: flux
+    namespace: monitoring
