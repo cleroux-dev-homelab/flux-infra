@@ -1,10 +1,19 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    app.kubernetes.io/component: monitoring
+    pod-security.kubernetes.io/enforce: privileged
+---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: kube-prometheus-stack-controller
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   dependsOn:
     - name: ingress-nginx-controller
   interval: 1m0s
@@ -31,6 +40,7 @@ metadata:
   name: kube-prometheus-stack-config
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   dependsOn:
     - name: kube-prometheus-stack-controller
   interval: 1m0s
