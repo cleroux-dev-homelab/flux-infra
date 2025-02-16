@@ -1,3 +1,13 @@
+---
+keys: &keys
+  - age1w25xrwp4207snq0nr7ext6slkph3n5zw0u6t358k46p7v9zx0udstxpw5c # gcleroux
+
 creation_rules:
-  - path_regex: .*.env
-    age: age1w25xrwp4207snq0nr7ext6slkph3n5zw0u6t358k46p7v9zx0udstxpw5c
+  - path_regex: .*.env$
+    key_groups:
+      - age: *keys
+
+  - path_regex: .*.yaml$
+    encrypted_regex: ^(data|stringData)$
+    key_groups:
+      - age: *keys

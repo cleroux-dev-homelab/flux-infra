@@ -1,9 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-
-resources:
-  - ./deprecated-apis.yaml
-  - ./disallow-empty-ingress-host.yaml
-  - ./disallow-latest-tag.yaml
-  - ./restrict-deprecated-registry.yaml
-  - ./sync-configmaps.yaml
