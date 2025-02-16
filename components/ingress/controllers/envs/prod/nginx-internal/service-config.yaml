@@ -1,9 +1,0 @@
-controller:
-  nodeSelector:
-    kubernetes.io/os: linux
-  service:
-    type: LoadBalancer
-    annotations:
-      metallb.universe.tf/loadBalancerIPs: "10.0.0.11"
-    ipFamilyPolicy: SingleStack
-    externalTrafficPolicy: Local

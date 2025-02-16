@@ -4,6 +4,6 @@ controller:
   service:
     type: LoadBalancer
     annotations:
-      metallb.universe.tf/loadBalancerIPs: "10.0.0.12"
+      metallb.universe.tf/loadBalancerIPs: "10.0.0.10"
     ipFamilyPolicy: SingleStack
     externalTrafficPolicy: Local
