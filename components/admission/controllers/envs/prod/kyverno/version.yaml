@@ -5,4 +5,4 @@ metadata:
 spec:
   chart:
     spec:
-      version: "3.3.4" # {"$imagepolicy": "flux-system:kyverno:tag"}
+      version: "3.3.7" # {"$imagepolicy": "flux-system:kyverno:tag"}
