@@ -3,7 +3,6 @@ kind: Kustomization
 
 resources:
   - ./cert-manager.yaml
-  - ./cert-manager-webhook-pinax.yaml
 
 configMapGenerator:
   - name: flux-cert-manager-config
