@@ -4,3 +4,4 @@ kind: Kustomization
 
 resources:
   - ./nginx-internal.yaml
+  - ./nginx-external.yaml
