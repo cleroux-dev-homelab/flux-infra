@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: flux-system
 
 resources:
-  - ./metrics-server.yaml
   - ./victoria-metrics.yaml

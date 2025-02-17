@@ -3,5 +3,4 @@ kind: Kustomization
 
 resources:
   - ./namespaces
-  - ./metrics-server
   - ./victoria-metrics
