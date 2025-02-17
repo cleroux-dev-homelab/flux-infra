@@ -9,6 +9,7 @@ victoria-metrics-operator:
 
 defaultDashboards:
   enabled: true
+  defaultTimezone: ${TIMEZONE}
 
 vmsingle:
   enabled: true
