@@ -1,0 +1,95 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: database-controllers
+  namespace: flux-system
+  labels:
+    app.kubernetes.io/component: database
+spec:
+  dependsOn:
+    - name: monitoring-controllers
+  serviceAccountName: flux-infra
+  interval: 1m
+  retryInterval: 30s
+  timeout: 30s
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-infra
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: flux-runtime-info
+  path: components/database/controllers/envs/${ENVIRONMENT}
+  components:
+    - ../../variants/${VARIANT}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: database-updates
+  namespace: flux-system
+  labels:
+    app.kubernetes.io/component: database
+    toolkit.fluxcd.io/role: automation
+spec:
+  serviceAccountName: flux-infra
+  interval: 1m
+  retryInterval: 30s
+  timeout: 30s
+  path: components/database/updates/envs/${ENVIRONMENT}
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-infra
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: database
+  namespace: flux-system
+  labels:
+    app.kubernetes.io/component: database
+    toolkit.fluxcd.io/role: automation
+spec:
+  interval: 30m
+  sourceRef:
+    kind: GitRepository
+    name: flux-infra
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      messageTemplate: |
+        ${ENVIRONMENT}: Automated image update
+
+        Automation name: {{ .AutomationObject }}
+
+        Files:
+        {{ range $filename, $_ := .Changed.FileChanges -}}
+        - {{ $filename }}
+        {{ end -}}
+
+        Objects:
+        {{ range $resource, $changes := .Changed.Objects -}}
+        - {{ $resource.Kind }} {{ $resource.Name }}
+          Changes:
+        {{- range $_, $change := $changes }}
+            - {{ $change.OldValue }} -> {{ $change.NewValue }}
+        {{ end -}}
+        {{ end -}}
+      author:
+        email: fluxcdbot@noreply.cleroux.dev
+        name: fluxcdbot
+    push:
+      branch: main
+  update:
+    path: "./components/database/controllers/envs/${ENVIRONMENT}"
+    strategy: Setters

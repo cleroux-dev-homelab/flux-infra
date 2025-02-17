@@ -1,0 +1,34 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: cloudnative-pg
+spec:
+  interval: 12h
+  type: oci
+  url: oci://ghcr.io/cloudnative-pg/charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cloudnative-pg
+spec:
+  serviceAccountName: flux
+  interval: 1h
+  chart:
+    spec:
+      chart: cloudnative-pg
+      sourceRef:
+        kind: HelmRepository
+        name: cloudnative-pg
+      interval: 12h
+  install:
+    crds: Create
+    timeout: 9m
+  upgrade:
+    crds: CreateReplace
+    timeout: 9m
+  values:
+    monitoring:
+      podMonitorEnabled: true
+      grafanaDashboard:
+        create: true
