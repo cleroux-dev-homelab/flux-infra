@@ -7,6 +7,8 @@ metadata:
   labels:
     app.kubernetes.io/component: tls
 spec:
+  dependsOn:
+    - name: monitoring-controllers
   serviceAccountName: flux-infra
   interval: 1m
   retryInterval: 30s

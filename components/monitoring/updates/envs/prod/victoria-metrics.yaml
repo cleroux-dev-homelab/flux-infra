@@ -2,19 +2,19 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
-  name: kube-prometheus-stack
+  name: victoria-metrics
 spec:
-  image: "ghcr.io/prometheus-community/charts/kube-prometheus-stack"
+  image: "ghcr.io/victoriametrics/helm-charts/victoria-metrics-k8s-stack"
   interval: 1h
   provider: generic
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
-  name: kube-prometheus-stack
+  name: victoria-metrics
 spec:
   imageRepositoryRef:
-    name: kube-prometheus-stack
+    name: victoria-metrics
   policy:
     semver:
-      range: "67.5.x"
+      range: ">=0.0.0 <1.0.0"

@@ -21,6 +21,3 @@ spec:
         kind: HelmRepository
         name: metrics-server
       interval: 12h
-  values:
-    extraArgs:
-      - --kubelet-insecure-tls

@@ -1,0 +1,13 @@
+vmsingle:
+  ingress:
+    enabled: true
+    ingressClassName: nginx-external
+    hosts:
+      - vm.infra.${EXTERNAL_DOMAIN}
+
+grafana:
+  ingress:
+    enabled: true
+    ingressClassName: nginx-external
+    hosts:
+      - grafana.infra.${EXTERNAL_DOMAIN}

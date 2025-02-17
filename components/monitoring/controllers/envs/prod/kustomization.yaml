@@ -3,5 +3,5 @@ kind: Kustomization
 
 resources:
   - ./namespaces
-  - ./kube-prometheus-stack
-  # - ./metrics-server
+  - ./metrics-server
+  - ./victoria-metrics
