@@ -5,4 +5,4 @@ metadata:
 spec:
   chart:
     spec:
-      version: "0.38.0" # {"$imagepolicy": "flux-system:victoria-metrics:tag"}
+      version: "0.38.1" # {"$imagepolicy": "flux-system:victoria-metrics:tag"}
