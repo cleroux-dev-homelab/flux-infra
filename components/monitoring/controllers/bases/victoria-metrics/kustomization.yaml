@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - ./victoria-metrics.yaml
+  - ./prometheus-operator-crds.yaml
 
 configMapGenerator:
   - name: flux-kube-state-metrics-config
