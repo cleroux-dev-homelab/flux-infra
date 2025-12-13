@@ -1,0 +1,11 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMStaticScrape
+metadata:
+  name: dnsmasq-metrics
+spec:
+  jobName: dnsmasq_service
+  targetEndpoints:
+    - targets:
+        - "calcifer.lan:9103"
+      path: /metrics
+      interval: 15s

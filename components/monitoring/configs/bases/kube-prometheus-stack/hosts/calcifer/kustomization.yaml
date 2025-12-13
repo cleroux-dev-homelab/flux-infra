@@ -5,6 +5,7 @@ namespace: monitoring
 resources:
   - ./agent.yaml
   - ./blocky.yaml
+  - ./dnsmasq.yaml
   - ./unbound.yaml
 
 labels:
