@@ -4,6 +4,7 @@ namespace: monitoring
 
 resources:
   - ./agent.yaml
+  - ./blocky.yaml
   - ./unbound.yaml
 
 labels:

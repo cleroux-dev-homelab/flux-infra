@@ -12,6 +12,8 @@ configMapGenerator:
       - ./dashboards/control-plane.json
       - ./dashboards/cluster.json
       - ./dashboards/unbound.json
+      - ./dashboards/blocky-grafana.json
+      - ./dashboards/dnsmasq.json
     options:
       labels:
         grafana_dashboard: "1"

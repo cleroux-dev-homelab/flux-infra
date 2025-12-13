@@ -1,0 +1,11 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMStaticScrape
+metadata:
+  name: blocky-metrics
+spec:
+  jobName: blocky_service
+  targetEndpoints:
+    - targets:
+        - "calcifer.lan:9102"
+      path: /metrics
+      interval: 15s
