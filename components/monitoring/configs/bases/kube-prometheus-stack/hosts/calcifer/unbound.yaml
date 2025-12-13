@@ -1,0 +1,11 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMStaticScrape
+metadata:
+  name: unbound-metrics
+spec:
+  jobName: unbound_service
+  targetEndpoints:
+    - targets:
+        - "calcifer.lan:9101"
+      path: /metrics
+      interval: 15s

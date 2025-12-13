@@ -1,0 +1,10 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAgent
+metadata:
+  name: calcifer-external
+spec:
+  staticScrapeSelector:
+    matchLabels:
+      scrape: calcifer-external
+  remoteWrite:
+    - url: http://vmsingle.monitoring.svc:8428/api/v1/write
