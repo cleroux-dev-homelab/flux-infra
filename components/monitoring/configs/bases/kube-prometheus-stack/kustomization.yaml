@@ -17,7 +17,7 @@ configMapGenerator:
         app.kubernetes.io/part-of: flux
         app.kubernetes.io/component: monitoring
       annotations:
-        grafana_folder: Flux
+        grafana_folder: "/var/lib/grafana/dashboards/Flux"
         kustomize.toolkit.fluxcd.io/substitute: disabled
 
   - name: networking-grafana-dashboards
@@ -31,5 +31,5 @@ configMapGenerator:
         app.kubernetes.io/part-of: flux
         app.kubernetes.io/component: monitoring
       annotations:
-        grafana_folder: Networking
+        grafana_folder: "/var/lib/grafana/dashboards/Networking"
         kustomize.toolkit.fluxcd.io/substitute: disabled
