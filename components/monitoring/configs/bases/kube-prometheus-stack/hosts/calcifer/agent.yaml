@@ -7,4 +7,4 @@ spec:
     matchLabels:
       scrape: calcifer-external
   remoteWrite:
-    - url: http://vmsingle.monitoring.svc:8428/api/v1/write
+    - url: http://vmsingle-vmks-victoria-metrics-k8s-stack.monitoring.svc:8428/api/v1/write
