@@ -1,25 +1,18 @@
 vmsingle:
-  ingress:
+  route:
     enabled: true
-    ingressClassName: nginx-external
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-production
-    hosts:
-      - vm.infra.${EXTERNAL_DOMAIN}
-    tls:
-      - hosts:
-          - vm.infra.${EXTERNAL_DOMAIN}
-        secretName: vm-cert
+    parentRefs:
+      - name: private-gateway
+        namespace: envoy-gateway-system
+    hostnames:
+      - vmks.${EXTERNAL_DOMAIN}
 
 grafana:
-  ingress:
-    enabled: true
-    ingressClassName: nginx-external
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-production
-    hosts:
-      - grafana.infra.${EXTERNAL_DOMAIN}
-    tls:
-      - hosts:
-          - grafana.infra.${EXTERNAL_DOMAIN}
-        secretName: grafana-cert
+  route:
+    main:
+      enabled: true
+      parentRefs:
+        - name: private-gateway
+          namespace: envoy-gateway-system
+      hostnames:
+        - grafana.${EXTERNAL_DOMAIN}
