@@ -1,0 +1,36 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: envoy-gateway
+spec:
+  interval: 12h
+  type: oci
+  url: oci://docker.io/envoyproxy
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: envoy-gateway
+spec:
+  interval: 1h
+  chart:
+    spec:
+      version: "v1.6.1"
+      chart: gateway-helm
+      sourceRef:
+        kind: HelmRepository
+        name: envoy-gateway
+      interval: 12h
+  install:
+    crds: Create
+    timeout: 9m
+  upgrade:
+    crds: CreateReplace
+    timeout: 9m
+  values:
+    config:
+      envoyGateway:
+        extensionApis:
+          enableBackend: true # Can be insecure, see https://gateway.envoyproxy.io/docs/tasks/traffic/backend/#warning
+

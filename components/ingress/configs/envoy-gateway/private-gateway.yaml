@@ -1,0 +1,58 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: private-gateway
+spec:
+  controllerName: gateway.envoyproxy.io/gatewayclass-controller
+  parametersRef:
+    group: gateway.envoyproxy.io
+    kind: EnvoyProxy
+    name: private-gateway-config
+    namespace: envoy-gateway-system
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: private-gateway-config
+  namespace: envoy-gateway-system
+spec:
+  mergeGateways: true # Single vIP for all traffic
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyDeployment:
+        replicas: 1
+        pod:
+          nodeSelector:
+            kubernetes.io/os: linux
+      envoyService:
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: "10.0.0.30"
+        externalTrafficPolicy: Local
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: private-gateway
+  namespace: envoy-gateway-system
+spec:
+  gatewayClassName: private-gateway
+  listeners:
+    - name: http
+      hostname: "*.${EXTERNAL_DOMAIN}"
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: https
+      hostname: "*.${EXTERNAL_DOMAIN}"
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: private-gateway-tls
