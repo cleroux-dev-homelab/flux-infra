@@ -5,7 +5,7 @@ vmsingle:
       - name: private-gateway
         namespace: envoy-gateway-system
     hostnames:
-      - vmks.${EXTERNAL_DOMAIN}
+      - vmks.infra.${EXTERNAL_DOMAIN}
 
 grafana:
   route:
@@ -15,4 +15,4 @@ grafana:
         - name: private-gateway
           namespace: envoy-gateway-system
       hostnames:
-        - grafana.${EXTERNAL_DOMAIN}
+        - grafana.infra.${EXTERNAL_DOMAIN}
