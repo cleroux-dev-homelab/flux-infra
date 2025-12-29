@@ -3,7 +3,7 @@ kind: VMStaticScrape
 metadata:
   name: node-exporter-metrics
 spec:
-  jobName: node-exporter_service
+  jobName: node-exporter
   targetEndpoints:
     - targets:
         - "calcifer.lan:9100"

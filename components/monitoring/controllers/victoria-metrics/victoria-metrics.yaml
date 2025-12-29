@@ -1,0 +1,97 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: victoria-metrics
+  namespace: flux-system
+spec:
+  interval: 12h
+  type: oci
+  url: oci://ghcr.io/victoriametrics/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: vmks
+  namespace: flux-system
+spec:
+  targetNamespace: monitoring
+  interval: 1h
+  chart:
+    spec:
+      chart: victoria-metrics-k8s-stack
+      version: "0.66.1" # {"$imagepolicy": "flux-system:vmks:tag"}
+      sourceRef:
+        kind: HelmRepository
+        name: victoria-metrics
+      interval: 12h
+  install:
+    crds: Create
+    timeout: 9m
+  upgrade:
+    crds: CreateReplace
+    timeout: 9m
+  driftDetection:
+    mode: enabled
+  valuesFrom:
+    - kind: ConfigMap
+      name: flux-kube-state-metrics-config
+  values:
+    nameOverride: "vmks"
+    global:
+      clusterLabel: cluster
+      cluster:
+        dnsDomain: cluster.local
+
+    prometheus-operator-crds:
+      enabled: true
+
+    victoria-metrics-operator:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+
+    defaultDashboards:
+      enabled: true
+      defaultTimezone: ${TIMEZONE}
+
+    vmsingle:
+      enabled: true
+      route:
+        enabled: true
+        parentRefs:
+          - name: private-gateway
+            namespace: envoy-gateway-system
+        hostnames:
+          - vmks.infra.${EXTERNAL_DOMAIN}
+
+    grafana:
+      enabled: true
+      route:
+        main:
+          enabled: true
+          parentRefs:
+            - name: private-gateway
+              namespace: envoy-gateway-system
+          hostnames:
+            - grafana.infra.${EXTERNAL_DOMAIN}
+      sidecar:
+        dashboards:
+          provider:
+            name: default
+            orgId: 1
+            allowUiUpdates: true
+            foldersFromFilesStructure: true
+          folder: /var/lib/grafana/dashboards
+          defaultFolderName: default
+          enabled: true
+          multicluster: false
+          label: grafana_dashboard
+          labelValue: "1"
+          folderAnnotation: "grafana_folder"
+
+    prometheus-node-exporter:
+      service:
+        port: 9022
+        targetPort: metrics
+      vmScrape:
+        enabled: true

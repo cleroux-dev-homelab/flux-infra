@@ -1,8 +1,0 @@
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: victoria-metrics
-spec:
-  chart:
-    spec:
-      version: "0.66.1" # {"$imagepolicy": "flux-system:victoria-metrics:tag"}
