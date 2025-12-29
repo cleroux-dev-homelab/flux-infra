@@ -24,9 +24,7 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: flux-runtime-info
-  path: components/ipam/controllers/envs/${ENVIRONMENT}
-  components:
-    - ../../variants/${VARIANT}
+  path: components/ipam/controllers
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -55,70 +53,4 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: flux-runtime-info
-  path: components/ipam/configs/envs/${ENVIRONMENT}
-  components:
-    - ../../variants/${VARIANT}
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: ipam-updates
-  namespace: flux-system
-  labels:
-    app.kubernetes.io/component: ipam
-    toolkit.fluxcd.io/role: automation
-spec:
-  serviceAccountName: flux-infra
-  interval: 1m
-  retryInterval: 30s
-  timeout: 30s
-  path: components/ipam/updates/envs/${ENVIRONMENT}
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-infra
----
-apiVersion: image.toolkit.fluxcd.io/v1
-kind: ImageUpdateAutomation
-metadata:
-  name: ipam
-  namespace: flux-system
-  labels:
-    app.kubernetes.io/component: ipam
-    toolkit.fluxcd.io/role: automation
-spec:
-  interval: 30m
-  sourceRef:
-    kind: GitRepository
-    name: flux-infra
-  git:
-    checkout:
-      ref:
-        branch: main
-    commit:
-      messageTemplate: |
-        ${ENVIRONMENT}: Automated image update
-
-        Automation name: {{ .AutomationObject }}
-
-        Files:
-        {{ range $filename, $_ := .Changed.FileChanges -}}
-        - {{ $filename }}
-        {{ end -}}
-
-        Objects:
-        {{ range $resource, $changes := .Changed.Objects -}}
-        - {{ $resource.Kind }} {{ $resource.Name }}
-          Changes:
-        {{- range $_, $change := $changes }}
-            - {{ $change.OldValue }} -> {{ $change.NewValue }}
-        {{ end -}}
-        {{ end -}}
-      author:
-        email: fluxcdbot@noreply.cleroux.dev
-        name: fluxcdbot
-    push:
-      branch: main
-  update:
-    path: "./components/ipam/controllers/envs/${ENVIRONMENT}"
-    strategy: Setters
+  path: components/ipam/configs
