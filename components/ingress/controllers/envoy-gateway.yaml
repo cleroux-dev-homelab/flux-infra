@@ -3,6 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: envoy-gateway
+  namespace: flux-system
 spec:
   interval: 12h
   type: oci
@@ -12,11 +13,13 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: envoy-gateway
+  namespace: flux-system
 spec:
+  targetNamespace: envoy-gateway-system
   interval: 1h
   chart:
     spec:
-      version: "v1.6.1"
+      version: "v1.6.1" # {"$imagepolicy": "flux-system:envoy-gateway:tag"}
       chart: gateway-helm
       sourceRef:
         kind: HelmRepository

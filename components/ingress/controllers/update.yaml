@@ -1,0 +1,67 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: envoy-gateway
+  namespace: flux-system
+spec:
+  image: "docker.io/envoyproxy/gateway-helm"
+  interval: 1h
+  provider: generic
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: envoy-gateway
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: envoy-gateway
+  policy:
+    semver:
+      range: ">=1.6.0"
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageUpdateAutomation
+metadata:
+  name: envoy-gateway
+  namespace: flux-system
+  labels:
+    app.kubernetes.io/component: ingress
+    toolkit.fluxcd.io/role: automation
+spec:
+  interval: 30m
+  sourceRef:
+    kind: GitRepository
+    name: flux-infra
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      messageTemplate: |
+        Automated image update
+
+        Automation name: {{ .AutomationObject }}
+
+        Files:
+        {{ range $filename, $_ := .Changed.FileChanges -}}
+        - {{ $filename }}
+        {{ end -}}
+
+        Objects:
+        {{ range $resource, $changes := .Changed.Objects -}}
+        - {{ $resource.Kind }} {{ $resource.Name }}
+          Changes:
+        {{- range $_, $change := $changes }}
+            - {{ $change.OldValue }} -> {{ $change.NewValue }}
+        {{ end -}}
+        {{ end -}}
+      author:
+        email: fluxcdbot@noreply.cleroux.dev
+        name: fluxcdbot
+    push:
+      branch: main
+  update:
+    path: "./components/ingress/controllers"
+    strategy: Setters
