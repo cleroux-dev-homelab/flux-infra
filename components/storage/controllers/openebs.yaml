@@ -1,0 +1,99 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: openebs
+  namespace: flux-system
+spec:
+  interval: 12h
+  type: oci
+  url: oci://ghcr.io/openebs/charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: openebs
+  namespace: flux-system
+spec:
+  targetNamespace: openebs
+  interval: 1h
+  chart:
+    spec:
+      chart: openebs
+      version: "4.4.0" # {"$imagepolicy": "flux-system:openebs:tag"}
+      sourceRef:
+        kind: HelmRepository
+        name: openebs
+      interval: 12h
+  install:
+    crds: Create
+    timeout: 9m
+  upgrade:
+    crds: CreateReplace
+    timeout: 9m
+  values:
+    openebs-crds:
+      csi:
+        volumeSnapshots:
+          enabled: true
+          keep: true
+
+    # Only deploy local-pv
+    localpv-provisioner:
+      localpv:
+        enabled: true
+      hostpathClass:
+        enabled: true
+        isDefaultClass: true
+      rbac:
+        create: true
+
+    zfs-localpv:
+      crds:
+        zfsLocalPv:
+          enabled: false
+        csi:
+          volumeSnapshots:
+            enabled: false
+
+    lvm-localpv:
+      crds:
+        lvmLocalPv:
+          enabled: false
+        csi:
+          volumeSnapshots:
+            enabled: false
+
+    rawfile-localpv:
+      crds:
+        csi:
+          volumeSnapshots:
+            enabled: false
+    mayastor:
+      csi:
+        node:
+          initContainers:
+            enabled: false
+      localpv-provisioner:
+        enabled: false
+      crds:
+        enabled: false
+      loki:
+        enabled: false
+      alloy:
+        enabled: false
+
+    engines:
+      local:
+        lvm:
+          enabled: false
+        zfs:
+          enabled: false
+      replicated:
+        mayastor:
+          enabled: false
+
+    loki:
+      enabled: false
+    alloy:
+      enabled: false
