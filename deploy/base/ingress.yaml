@@ -7,6 +7,9 @@ metadata:
   labels:
     app.kubernetes.io/component: ingress
 spec:
+  dependsOn:
+    - name: crds-controllers
+    - name: tls-controllers
   serviceAccountName: flux-infra
   interval: 1m
   retryInterval: 30s
@@ -36,6 +39,7 @@ metadata:
 spec:
   dependsOn:
     - name: ingress-controllers
+    - name: ipam-configs
   serviceAccountName: flux-infra
   interval: 1m
   retryInterval: 30s

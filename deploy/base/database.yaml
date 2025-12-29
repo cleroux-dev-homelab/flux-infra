@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/component: database
 spec:
   dependsOn:
-    - name: monitoring-controllers
+    - name: crds-controllers
   serviceAccountName: flux-infra
   interval: 1m
   retryInterval: 30s
