@@ -3,20 +3,24 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: cert-manager
+  namespace: flux-system
 spec:
   interval: 12h
-  url: https://charts.jetstack.io
+  type: oci
+  url: oci://quay.io/jetstack/charts
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: cert-manager
+  namespace: flux-system
 spec:
-  serviceAccountName: flux
+  targetNamespace: cert-manager
   interval: 1h
   chart:
     spec:
       chart: cert-manager
+      version: "1.19.2" # {"$imagepolicy": "flux-system:cert-manager:tag"}
       sourceRef:
         kind: HelmRepository
         name: cert-manager
@@ -27,6 +31,7 @@ spec:
   upgrade:
     crds: CreateReplace
     timeout: 9m
-  valuesFrom:
-    - kind: ConfigMap
-      name: flux-cert-manager-config
+  values:
+    crds:
+      enabled: true
+      keep: true
