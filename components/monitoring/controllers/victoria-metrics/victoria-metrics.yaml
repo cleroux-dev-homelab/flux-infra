@@ -19,7 +19,7 @@ spec:
   chart:
     spec:
       chart: victoria-metrics-k8s-stack
-      version: "0.66.1" # {"$imagepolicy": "flux-system:vmks:tag"}
+      version: "0.67.0" # {"$imagepolicy": "flux-system:vmks:tag"}
       sourceRef:
         kind: HelmRepository
         name: victoria-metrics
@@ -41,19 +41,15 @@ spec:
       clusterLabel: cluster
       cluster:
         dnsDomain: cluster.local
-
     prometheus-operator-crds:
       enabled: true
-
     victoria-metrics-operator:
       enabled: true
       serviceMonitor:
         enabled: true
-
     defaultDashboards:
       enabled: true
       defaultTimezone: ${TIMEZONE}
-
     vmsingle:
       enabled: true
       route:
@@ -63,7 +59,6 @@ spec:
             namespace: envoy-gateway-system
         hostnames:
           - vmks.infra.${EXTERNAL_DOMAIN}
-
     grafana:
       enabled: true
       route:
@@ -88,7 +83,6 @@ spec:
           label: grafana_dashboard
           labelValue: "1"
           folderAnnotation: "grafana_folder"
-
     prometheus-node-exporter:
       service:
         port: 9022
