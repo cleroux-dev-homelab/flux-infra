@@ -18,7 +18,7 @@ spec:
   chart:
     spec:
       chart: prometheus-operator-crds
-      version: "25.0.1" # {"$imagepolicy": "flux-system:prometheus-crds:tag"}
+      version: "26.0.0" # {"$imagepolicy": "flux-system:prometheus-crds:tag"}
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
