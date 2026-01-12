@@ -1,4 +1,3 @@
----
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
@@ -19,7 +18,7 @@ spec:
   interval: 1h
   chart:
     spec:
-      version: "v1.6.1" # {"$imagepolicy": "flux-system:envoy-gateway:tag"}
+      version: "v1.6.2" # {"$imagepolicy": "flux-system:envoy-gateway:tag"}
       chart: gateway-helm
       sourceRef:
         kind: HelmRepository
@@ -36,4 +35,3 @@ spec:
       envoyGateway:
         extensionApis:
           enableBackend: true # Can be insecure, see https://gateway.envoyproxy.io/docs/tasks/traffic/backend/#warning
-
