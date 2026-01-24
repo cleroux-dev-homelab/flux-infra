@@ -19,7 +19,7 @@ spec:
   chart:
     spec:
       chart: victoria-metrics-k8s-stack
-      version: "0.68.0" # {"$imagepolicy": "flux-system:vmks:tag"}
+      version: "0.69.0" # {"$imagepolicy": "flux-system:vmks:tag"}
       sourceRef:
         kind: HelmRepository
         name: victoria-metrics
