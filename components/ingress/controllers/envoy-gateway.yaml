@@ -18,7 +18,7 @@ spec:
   interval: 1h
   chart:
     spec:
-      version: "v1.6.3" # {"$imagepolicy": "flux-system:envoy-gateway:tag"}
+      version: "v1.7.0" # {"$imagepolicy": "flux-system:envoy-gateway:tag"}
       chart: gateway-helm
       sourceRef:
         kind: HelmRepository
