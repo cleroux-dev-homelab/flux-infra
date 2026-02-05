@@ -1,4 +1,3 @@
----
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
@@ -20,7 +19,7 @@ spec:
   chart:
     spec:
       chart: cloudnative-pg
-      version: "0.27.0" # {"$imagepolicy": "flux-system:cloudnative-pg:tag"}
+      version: "0.27.1" # {"$imagepolicy": "flux-system:cloudnative-pg:tag"}
       sourceRef:
         kind: HelmRepository
         name: cloudnative-pg
