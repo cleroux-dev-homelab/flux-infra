@@ -66,5 +66,5 @@ spec:
     push:
       branch: main
   update:
-    path: "./components/database/controllers"
+    path: "./components/database/controllers/postgres"
     strategy: Setters
