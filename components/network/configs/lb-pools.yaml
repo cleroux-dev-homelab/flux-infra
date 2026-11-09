@@ -1,0 +1,14 @@
+# LoadBalancer addresses, assigned by Cilium's LB IPAM. Each pool only matches its
+# own gateway's Service, so nothing gets an address by accident.
+---
+apiVersion: cilium.io/v2
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: private
+spec:
+  blocks:
+    - cidr: 10.0.40.0/24
+    - cidr: 2606:6d00:ffb:6640::/64
+  serviceSelector:
+    matchLabels:
+      gateway.envoyproxy.io/owning-gatewayclass: private-gateway

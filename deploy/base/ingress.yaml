@@ -39,7 +39,7 @@ metadata:
 spec:
   dependsOn:
     - name: ingress-controllers
-    - name: ipam-configs
+    - name: network-configs
   serviceAccountName: flux-infra
   interval: 1m
   retryInterval: 30s

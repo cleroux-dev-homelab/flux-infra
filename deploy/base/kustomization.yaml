@@ -6,8 +6,8 @@ resources:
   - ./crds.yaml
   - ./database.yaml
   - ./ingress.yaml
-  - ./ipam.yaml
   - ./monitoring.yaml
+  - ./network.yaml
   - ./storage.yaml
   - ./tls.yaml
 

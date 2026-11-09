@@ -17,6 +17,7 @@ metadata:
   namespace: envoy-gateway-system
 spec:
   mergeGateways: true # Single vIP for all traffic
+  ipFamily: DualStack
   provider:
     type: Kubernetes
     kubernetes:
@@ -27,7 +28,9 @@ spec:
             kubernetes.io/os: linux
       envoyService:
         annotations:
-          metallb.universe.tf/loadBalancerIPs: "10.0.0.30"
+          # From the "private" CiliumLoadBalancerIPPool (components/network),
+          # routed by calcifer over BGP.
+          lbipam.cilium.io/ips: "10.0.40.10,2606:6d00:ffb:6640::10"
         externalTrafficPolicy: Local
 ---
 apiVersion: gateway.networking.k8s.io/v1
