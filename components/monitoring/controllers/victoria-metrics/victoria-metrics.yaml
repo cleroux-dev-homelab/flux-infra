@@ -58,7 +58,7 @@ spec:
           - name: private-gateway
             namespace: envoy-gateway-system
         hostnames:
-          - vmks.infra.${EXTERNAL_DOMAIN}
+          - vmks.${PRIVATE_DOMAIN}
     grafana:
       enabled: true
       route:
@@ -68,7 +68,7 @@ spec:
             - name: private-gateway
               namespace: envoy-gateway-system
           hostnames:
-            - grafana.infra.${EXTERNAL_DOMAIN}
+            - grafana.${PRIVATE_DOMAIN}
       sidecar:
         dashboards:
           provider:

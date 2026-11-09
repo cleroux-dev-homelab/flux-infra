@@ -42,14 +42,14 @@ spec:
   gatewayClassName: private-gateway
   listeners:
     - name: http
-      hostname: "*.${EXTERNAL_DOMAIN}"
+      hostname: "*.${PRIVATE_DOMAIN}"
       protocol: HTTP
       port: 80
       allowedRoutes:
         namespaces:
           from: All
     - name: https
-      hostname: "*.${EXTERNAL_DOMAIN}"
+      hostname: "*.${PRIVATE_DOMAIN}"
       protocol: HTTPS
       port: 443
       allowedRoutes:

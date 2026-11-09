@@ -14,7 +14,6 @@ spec:
       - selector:
           dnsZones:
             - ${EXTERNAL_DOMAIN}
-            - infra.${EXTERNAL_DOMAIN}
         dns01:
           cloudflare:
             apiTokenSecretRef:
@@ -31,6 +30,5 @@ spec:
     name: private-gateway-issuer
     kind: Issuer
   dnsNames:
-    - "*.${EXTERNAL_DOMAIN}"
-    - "*.infra.${EXTERNAL_DOMAIN}"
+    - "*.${PRIVATE_DOMAIN}"
   secretName: private-gateway-tls
