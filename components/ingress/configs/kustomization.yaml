@@ -6,3 +6,4 @@ resources:
   - ./private-gateway.yaml
   - ./tls.yaml
   - ./cf-token.yaml
+  - ./auth.yaml
