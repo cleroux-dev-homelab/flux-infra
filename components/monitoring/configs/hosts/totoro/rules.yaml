@@ -1,0 +1,23 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMRule
+metadata:
+  name: totoro-backups
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
+spec:
+  groups:
+    - name: backups
+      rules:
+        - alert: BackupTooOld
+          expr: time() - btrbk_newest_backup_timestamp_seconds > 26 * 3600
+          labels:
+            severity: warning
+          annotations:
+            summary: "The newest {{ $labels.backup }} backup on totoro is {{ $value | humanizeDuration }} old"
+        - alert: BackupAgeMissing
+          expr: absent(btrbk_newest_backup_timestamp_seconds{backup="calcifer"})
+          for: 1h
+          labels:
+            severity: warning
+          annotations:
+            summary: "totoro isn't reporting the age of the calcifer backups"

@@ -1,0 +1,11 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMStaticScrape
+metadata:
+  name: totoro-node-exporter-metrics
+spec:
+  jobName: node-exporter
+  targetEndpoints:
+    - targets:
+        - "totoro.lan:9100"
+      path: /metrics
+      interval: 15s

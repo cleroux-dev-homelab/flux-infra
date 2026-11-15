@@ -4,6 +4,7 @@ namespace: monitoring
 
 resources:
   - ./hosts/calcifer
+  - ./hosts/totoro
   - ./podmonitor.yaml
 
 configMapGenerator:
