@@ -41,13 +41,6 @@ metadata:
 spec:
   gatewayClassName: private-gateway
   listeners:
-    - name: http
-      hostname: "*.${PRIVATE_DOMAIN}"
-      protocol: HTTP
-      port: 80
-      allowedRoutes:
-        namespaces:
-          from: All
     - name: https
       hostname: "*.${PRIVATE_DOMAIN}"
       protocol: HTTPS
