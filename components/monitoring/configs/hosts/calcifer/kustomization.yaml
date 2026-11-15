@@ -3,12 +3,7 @@ kind: Kustomization
 namespace: monitoring
 
 resources:
-  - ./agent.yaml
   - ./blocky.yaml
   - ./dnsmasq.yaml
   - ./node-exporter.yaml
   - ./unbound.yaml
-
-labels:
-  - pairs:
-      scrape: calcifer-external

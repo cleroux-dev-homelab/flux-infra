@@ -1,7 +1,7 @@
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMStaticScrape
 metadata:
-  name: unbound-metrics
+  name: calcifer-unbound-metrics
 spec:
   jobName: unbound_service
   targetEndpoints:

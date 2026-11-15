@@ -1,7 +1,7 @@
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMStaticScrape
 metadata:
-  name: blocky-metrics
+  name: calcifer-blocky-metrics
 spec:
   jobName: blocky_service
   targetEndpoints:
