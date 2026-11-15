@@ -27,7 +27,7 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: flux-runtime-info
-  path: components/monitoring/controllers
+  path: infra/monitoring/controllers
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -56,4 +56,4 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: flux-runtime-info
-  path: components/monitoring/configs
+  path: infra/monitoring/configs

@@ -16,4 +16,4 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-infra
-  path: components/network/configs
+  path: infra/network/configs

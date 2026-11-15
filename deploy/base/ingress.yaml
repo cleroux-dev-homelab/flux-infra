@@ -27,7 +27,7 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: flux-runtime-info
-  path: components/ingress/controllers
+  path: infra/ingress/controllers
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -57,4 +57,4 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: flux-runtime-info
-  path: components/ingress/configs
+  path: infra/ingress/configs

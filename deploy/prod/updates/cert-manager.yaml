@@ -1,0 +1,24 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: cert-manager
+  labels:
+    toolkit.fluxcd.io/role: automation
+spec:
+  image: quay.io/jetstack/charts/cert-manager
+  interval: 1h
+  provider: generic
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: cert-manager
+  labels:
+    toolkit.fluxcd.io/role: automation
+spec:
+  imageRepositoryRef:
+    name: cert-manager
+  policy:
+    semver:
+      range: ">=1.9.0"

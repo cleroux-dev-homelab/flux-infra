@@ -26,4 +26,4 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: flux-runtime-info
-  path: components/storage/controllers
+  path: infra/storage/controllers

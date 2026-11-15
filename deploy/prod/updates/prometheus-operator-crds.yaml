@@ -1,0 +1,24 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: prometheus-crds
+  labels:
+    toolkit.fluxcd.io/role: automation
+spec:
+  image: ghcr.io/prometheus-community/charts/prometheus-operator-crds
+  interval: 1h
+  provider: generic
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: prometheus-crds
+  labels:
+    toolkit.fluxcd.io/role: automation
+spec:
+  imageRepositoryRef:
+    name: prometheus-crds
+  policy:
+    semver:
+      range: ">=25.0.0"

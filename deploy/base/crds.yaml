@@ -24,4 +24,4 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: flux-runtime-info
-  path: components/crds/controllers
+  path: infra/crds/controllers
