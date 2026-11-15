@@ -41,15 +41,19 @@ spec:
       clusterLabel: cluster
       cluster:
         dnsDomain: cluster.local
+
     prometheus-operator-crds:
       enabled: true
     victoria-metrics-operator:
       enabled: true
       serviceMonitor:
         enabled: true
-    defaultDashboards:
-      enabled: true
-      defaultTimezone: ${TIMEZONE}
+    kubeControllerManager:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeEtcd:
+      enabled: false
     vmsingle:
       enabled: true
       route:
@@ -59,6 +63,7 @@ spec:
             namespace: envoy-gateway-system
         hostnames:
           - vmks.${PRIVATE_DOMAIN}
+
     grafana:
       enabled: true
       route:
@@ -83,6 +88,11 @@ spec:
           label: grafana_dashboard
           labelValue: "1"
           folderAnnotation: "grafana_folder"
+
+    defaultDashboards:
+      enabled: true
+      defaultTimezone: ${TIMEZONE}
+
     prometheus-node-exporter:
       service:
         port: 9022
