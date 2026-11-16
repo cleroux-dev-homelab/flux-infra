@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - ./bgp.yaml
+  - ./calcifer-access.yaml
   - ./lb-pools.yaml
   - ./totoro-nfs.yaml
 

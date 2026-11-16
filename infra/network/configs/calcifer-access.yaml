@@ -1,0 +1,68 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: deny-pods-calcifer-bgp
+spec:
+  # Cilium's BGP speaker runs on the node, which this doesn't select
+  endpointSelector: {}
+  enableDefaultDeny:
+    egress: false
+    ingress: false
+  egressDeny:
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "179"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: deny-pods-calcifer-auth
+spec:
+  # Only the Envoy gateway talks to Authelia and LLDAP directly
+  # Apps using OIDC go through the gateway, like browsers
+  endpointSelector:
+    matchExpressions:
+      - key: k8s:io.kubernetes.pod.namespace
+        operator: NotIn
+        values:
+          - envoy-gateway-system
+  enableDefaultDeny:
+    egress: false
+    ingress: false
+  egressDeny:
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "9091"
+              protocol: TCP
+            - port: "17170"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: deny-pods-calcifer-metrics
+spec:
+  # Only VictoriaMetrics scrapes calcifer's and totoro's exporters
+  endpointSelector:
+    matchExpressions:
+      - key: k8s:io.kubernetes.pod.namespace
+        operator: NotIn
+        values:
+          - monitoring
+  enableDefaultDeny:
+    egress: false
+    ingress: false
+  egressDeny:
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "9100"
+              endPort: 9103
+              protocol: TCP
