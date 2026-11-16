@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./bgp.yaml
   - ./lb-pools.yaml
+  - ./totoro-nfs.yaml
 
 labels:
   - pairs:
