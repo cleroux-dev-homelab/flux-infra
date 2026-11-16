@@ -10,8 +10,8 @@ resources:
 configMapGenerator:
   - name: flux-grafana-dashboards
     files:
-      - ./dashboards/control-plane.json
-      - ./dashboards/cluster.json
+      - ./dashboards/flux/cluster.json
+      - ./dashboards/flux/control-plane.json
     options:
       labels:
         grafana_dashboard: "1"
@@ -21,16 +21,16 @@ configMapGenerator:
         grafana_folder: "Flux"
         kustomize.toolkit.fluxcd.io/substitute: disabled
 
-  - name: networking-grafana-dashboards
+  - name: dns-grafana-dashboards
     files:
-      - ./dashboards/unbound.json
-      - ./dashboards/blocky-grafana.json
-      - ./dashboards/dnsmasq.json
+      - ./dashboards/dns/blocky.json
+      - ./dashboards/dns/dnsmasq.json
+      - ./dashboards/dns/unbound.json
     options:
       labels:
         grafana_dashboard: "1"
         app.kubernetes.io/part-of: flux
         app.kubernetes.io/component: monitoring
       annotations:
-        grafana_folder: "Networking"
+        grafana_folder: "DNS"
         kustomize.toolkit.fluxcd.io/substitute: disabled
