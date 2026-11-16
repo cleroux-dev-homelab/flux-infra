@@ -204,67 +204,6 @@
               }
             ]
           },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 6,
-        "y": 0
-      },
-      "id": 4,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.5.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "builder",
-          "expr": "dnsmasq_auth{instance=\"$instance\"}",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Auth",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
           "unit": "dtdurations"
         },
         "overrides": []
@@ -272,7 +211,7 @@
       "gridPos": {
         "h": 3,
         "w": 3,
-        "x": 9,
+        "x": 6,
         "y": 0
       },
       "id": 5,
@@ -333,7 +272,7 @@
       "gridPos": {
         "h": 3,
         "w": 3,
-        "x": 12,
+        "x": 9,
         "y": 0
       },
       "id": 6,
@@ -371,6 +310,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "Queries dnsmasq answered itself: .lan names and 10.0.0.x reverse lookups, forwarded by unbound. It has no upstream servers (no-resolv), so its forwarded (misses), cache insertion and eviction counters stay at 0.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -450,56 +390,14 @@
           },
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "increase(dnsmasq_evictions{instance=\"$instance\"}[$__rate_interval])",
+          "expr": "increase(dnsmasq_hits{instance=\"$instance\"}[$__rate_interval])",
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "Answered locally",
           "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "builder",
-          "exemplar": false,
-          "expr": "increase(dnsmasq_hits{instance=\"$instance\"}[$__rate_interval])",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "builder",
-          "exemplar": false,
-          "expr": "increase(dnsmasq_insertions{instance=\"$instance\"}[$__rate_interval])",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "builder",
-          "exemplar": false,
-          "expr": "increase(dnsmasq_misses{instance=\"$instance\"}[$__rate_interval])",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "D"
         }
       ],
-      "title": "Status",
+      "title": "Local answers",
       "type": "timeseries"
     },
     {
