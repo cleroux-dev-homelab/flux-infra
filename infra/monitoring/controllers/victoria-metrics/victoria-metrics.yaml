@@ -56,16 +56,30 @@ spec:
       enabled: false
     vmsingle:
       enabled: true
-      route:
-        enabled: true
-        parentRefs:
-          - name: private-gateway
-            namespace: envoy-gateway-system
-        hostnames:
-          - vmks.${PRIVATE_DOMAIN}
 
     grafana:
       enabled: true
+      envFromSecret: grafana-oidc
+      grafana.ini:
+        server:
+          root_url: https://grafana.${PRIVATE_DOMAIN}
+        auth.generic_oauth:
+          enabled: true
+          name: Authelia
+          icon: signin
+          client_id: grafana
+          scopes: openid profile email groups
+          empty_scopes: false
+          auth_url: https://auth.${PRIVATE_DOMAIN}/api/oidc/authorization
+          token_url: https://auth.${PRIVATE_DOMAIN}/api/oidc/token
+          api_url: https://auth.${PRIVATE_DOMAIN}/api/oidc/userinfo
+          login_attribute_path: preferred_username
+          groups_attribute_path: groups
+          name_attribute_path: name
+          use_pkce: true
+          auth_style: InHeader
+          role_attribute_path: "contains(groups[*], 'lldap_admin') && 'Admin' || 'Viewer'"
+          auto_login: true
       route:
         main:
           enabled: true

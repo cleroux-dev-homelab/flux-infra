@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: grafana-oidc
+    namespace: monitoring
+type: Opaque
+stringData:
+    GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: ENC[AES256_GCM,data:kE0Xleom5X9DkyhHbA8yUWxZwEh3iyB0WInukGRI0fByvtd+0DyCwEudjK3q4RhVlbClI2T9lIDqW9os3DDeSg==,iv:Z+zoddHAZ7FPBG+k+W8fxF2gidDQWWsg6qAxbwVUodM=,tag:CF4K5K9mrXLM93FpiVFUKQ==,type:str]
+sops:
+    age:
+        - enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB6aCtBMlNUeE5lZVFqVjlu
+            WXNUa2M1eDlWaFVEWlZxWkV3SFJUVURxWlM4CmpJSE1ZVG5ud2d4WFNZZ2x0bmhR
+            TTFqL0xaMnVTbllpWE8rR3dPMmFOQVUKLS0tIERRMWNxaHpuMDVla2FqT0xJV0w1
+            SUJoS3RqNDlYWmZoNFNKY0hOSUl1ZWcKW/X070nnK6i5t4T961tYs3YagmA40Q9x
+            En1FVJyH4jkqsKGtHbNpD88R2vPp7jftsZI0JA1Qrn97pq3d1k5DtA==
+            -----END AGE ENCRYPTED FILE-----
+          recipient: age1w25xrwp4207snq0nr7ext6slkph3n5zw0u6t358k46p7v9zx0udstxpw5c
+    encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-11-17T02:20:45Z"
+    mac: ENC[AES256_GCM,data:oZYBjAySaRDMTdRjUGjG+eQwoP0gfeEdQcud3x/ceiXiFgzY4VVbDdkeOpPYBKBfys18aHD0CPzJ+eQATmjbCnQ0rEcNq6rmCtmAlgnLxBYNE2XCJTK0VKQCDiyJ3b6U8U/QgvH97WZIf2XZG27YHllmjxGgshkcA9Nvp3eXqfg=,iv:3wM7CdAmCWp9fvjsoCcxKiXiQ5ojun8/LDryIEazT5k=,tag:ZlmVPkOAT6Uq60LhpO8gLA==,type:str]
+    version: 3.13.3
