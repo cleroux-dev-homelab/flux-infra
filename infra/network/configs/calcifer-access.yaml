@@ -66,3 +66,27 @@ spec:
             - port: "9100"
               endPort: 9103
               protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: deny-pods-calcifer-ldap
+spec:
+  # Only Jellyfin and Calibre-web check passwords against LLDAP directly
+  endpointSelector:
+    matchExpressions:
+      - key: k8s:io.kubernetes.pod.namespace
+        operator: NotIn
+        values:
+          - calibre-web
+          - jellyfin-system
+  enableDefaultDeny:
+    egress: false
+    ingress: false
+  egressDeny:
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "3890"
+              protocol: TCP
