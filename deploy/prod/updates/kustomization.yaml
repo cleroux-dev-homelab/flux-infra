@@ -8,6 +8,5 @@ resources:
   - ./cert-manager.yaml
   - ./cloudnative-pg.yaml
   - ./envoy-gateway.yaml
-  - ./openebs.yaml
   - ./prometheus-operator-crds.yaml
   - ./victoria-metrics.yaml

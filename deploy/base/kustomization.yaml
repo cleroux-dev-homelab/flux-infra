@@ -8,7 +8,6 @@ resources:
   - ./ingress.yaml
   - ./monitoring.yaml
   - ./network.yaml
-  - ./storage.yaml
   - ./tls.yaml
 
 labels:
