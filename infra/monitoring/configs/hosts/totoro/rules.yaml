@@ -15,9 +15,11 @@ spec:
           annotations:
             summary: "The newest {{ $labels.backup }} backup on totoro is {{ $value | humanizeDuration }} old"
         - alert: BackupAgeMissing
-          expr: absent(btrbk_newest_backup_timestamp_seconds{backup="calcifer"})
+          expr: |
+            absent(btrbk_newest_backup_timestamp_seconds{backup="calcifer"})
+              or absent(btrbk_newest_backup_timestamp_seconds{backup="nixos-worker-01"})
           for: 1h
           labels:
             severity: warning
           annotations:
-            summary: "totoro isn't reporting the age of the calcifer backups"
+            summary: "totoro isn't reporting the age of the {{ $labels.backup }} backups"

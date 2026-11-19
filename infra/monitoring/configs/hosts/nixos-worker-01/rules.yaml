@@ -1,0 +1,30 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMRule
+metadata:
+  name: nixos-worker-01-app-volumes
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
+spec:
+  groups:
+    - name: app-volumes
+      rules:
+        # local-path doesn't enforce sizes: a volume's capacity is its PVC request, and only
+        # these alerts hold an app to it. The whole disk is covered by the NodeFilesystem alerts.
+        - alert: AppVolumeAlmostFull
+          expr: |
+            max by (claim_namespace, claim) (
+              appdata_volume_used_bytes
+                / on (persistentvolume) group_left kube_persistentvolume_capacity_bytes
+            ) > 0.9
+          for: 1h
+          labels:
+            severity: warning
+          annotations:
+            summary: "{{ $labels.claim_namespace }}/{{ $labels.claim }} uses {{ $value | humanizePercentage }} of its requested size"
+        - alert: AppVolumeUsageMissing
+          expr: absent(appdata_volume_used_bytes)
+          for: 1h
+          labels:
+            severity: warning
+          annotations:
+            summary: "nixos-worker-01 isn't reporting the disk usage of the app volumes"

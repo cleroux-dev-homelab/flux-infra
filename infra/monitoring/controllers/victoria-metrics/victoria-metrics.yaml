@@ -108,6 +108,9 @@ spec:
       defaultTimezone: ${TIMEZONE}
 
     prometheus-node-exporter:
+      # nixos-worker-01's appdata-usage service writes the app volume sizes there
+      extraArgs:
+        - --collector.textfile.directory=/host/root/var/lib/node-exporter-textfile
       service:
         port: 9022
         targetPort: metrics

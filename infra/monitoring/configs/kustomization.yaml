@@ -4,6 +4,7 @@ namespace: monitoring
 
 resources:
   - ./hosts/calcifer
+  - ./hosts/nixos-worker-01
   - ./hosts/totoro
   - ./podmonitor.yaml
 
