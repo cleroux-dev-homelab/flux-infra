@@ -87,3 +87,24 @@ spec:
         - Remote-Groups
         - Remote-Name
         - Remote-Email
+      # Close idle connections before Authelia does. It answers a connection that sent
+      # nothing for 6s with a 408, and closes a used one after 30s idle, which can race
+      # with a new check and fail it closed.
+      backendSettings:
+        timeout:
+          http:
+            connectionIdleTimeout: 5s
+---
+# Same idle timeout for the login page's own connections to Authelia.
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: BackendTrafficPolicy
+metadata:
+  name: authelia
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: authelia
+  timeout:
+    http:
+      connectionIdleTimeout: 5s
