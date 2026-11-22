@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./victoria-metrics.yaml
   - ./grafana-oidc.yaml
+  - ./alertmanager-notifications.yaml
 
 configMapGenerator:
   - name: flux-kube-state-metrics-config

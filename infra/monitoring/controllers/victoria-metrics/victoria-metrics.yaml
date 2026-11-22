@@ -116,3 +116,43 @@ spec:
         targetPort: metrics
       vmScrape:
         enabled: true
+
+    alertmanager:
+      spec:
+        secrets:
+          - alertmanager-notifications
+      config:
+        route:
+          receiver: blackhole
+          group_by: [alertname, namespace]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 24h
+          routes:
+            # Always firing: healthchecks.io alerts when these pings stop, i.e. when the cluster,
+            # its monitoring or the internet is down and no other alert could get out
+            - matchers: [alertname="Watchdog"]
+              receiver: healthchecks
+              group_wait: 0s
+              group_interval: 1m
+              repeat_interval: 1m
+            - matchers: [severity=~"warning|critical"]
+              receiver: email
+        inhibit_rules:
+          - source_matchers: [severity="critical"]
+            target_matchers: [severity="warning"]
+            equal: [alertname, namespace]
+        receivers:
+          - name: blackhole
+          - name: email
+            email_configs:
+              - to: guillaume@${EXTERNAL_DOMAIN}
+                from: alerts@${EXTERNAL_DOMAIN}
+                smarthost: smtp.migadu.com:465
+                auth_username: alerts@${EXTERNAL_DOMAIN}
+                auth_password_file: /etc/vm/secrets/alertmanager-notifications/smtp-password
+                send_resolved: true
+          - name: healthchecks
+            webhook_configs:
+              - url_file: /etc/vm/secrets/alertmanager-notifications/healthchecks-url
+                send_resolved: false
