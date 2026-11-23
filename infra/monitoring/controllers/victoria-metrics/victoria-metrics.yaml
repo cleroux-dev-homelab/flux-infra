@@ -19,7 +19,7 @@ spec:
   chart:
     spec:
       chart: victoria-metrics-k8s-stack
-      version: "0.98.1" # {"$imagepolicy": "flux-system:vmks:tag"}
+      version: "0.99.0" # {"$imagepolicy": "flux-system:vmks:tag"}
       sourceRef:
         kind: HelmRepository
         name: victoria-metrics
@@ -41,7 +41,6 @@ spec:
       clusterLabel: cluster
       cluster:
         dnsDomain: cluster.local
-
     prometheus-operator-crds:
       enabled: true
     victoria-metrics-operator:
@@ -56,7 +55,6 @@ spec:
       enabled: false
     vmsingle:
       enabled: true
-
     grafana:
       enabled: true
       envFromSecret: grafana-oidc
@@ -102,11 +100,9 @@ spec:
           label: grafana_dashboard
           labelValue: "1"
           folderAnnotation: "grafana_folder"
-
     defaultDashboards:
       enabled: true
       defaultTimezone: ${TIMEZONE}
-
     prometheus-node-exporter:
       # nixos-worker-01's appdata-usage service writes the app volume sizes there
       extraArgs:
@@ -116,7 +112,6 @@ spec:
         targetPort: metrics
       vmScrape:
         enabled: true
-
     alertmanager:
       spec:
         secrets:
